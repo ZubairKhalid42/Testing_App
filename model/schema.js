@@ -52,7 +52,13 @@ const Group = new mongoose.Schema({
     },
     groupMembers: {
         type: Array,
-        required: true
+        required: true,
+        validate: {
+            validator: function(v) {
+              return v && v.length > 0;
+            },
+            message: 'Group members is required'
+        }
     },
     groupCategory: {
         type: String,

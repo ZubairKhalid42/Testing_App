@@ -30,6 +30,13 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "concurrently": "^7.2.2"
+    "chai": "^4.2.0",
+    "chai-http": "^4.4.0",
+    "concurrently": "^7.2.2",
+    "mocha": "^10.4.0",
+    "mongodb-memory-server": "^9.2.0",
+    "sinon": "^17.0.1",
+    "sinon-chai": "^3.7.0",
+    "supertest": "^7.0.0"
   }
 }
