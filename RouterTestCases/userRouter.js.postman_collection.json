@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "eef5867d-99e1-4e34-a723-35704c56e000",
+		"name": "userRouter.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34673916"
+	},
+	"item": [
+		{
+			"name": "userRegisterRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for successful user registration\r",
+							"pm.test(\"User registration successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User Registeration Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('userId').to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"// Test for duplicate email\r",
+							"pm.test(\"Duplicate email should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Email validation fail!!');\r",
+							"});\r",
+							"\r",
+							"// Test for invalid email format\r",
+							"pm.test(\"Invalid email format should return 500 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Email validation fail!!');\r",
+							"});\r",
+							"\r",
+							"// Test for invalid password format\r",
+							"pm.test(\"Invalid password format should return 500 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Email validation fail!!');\r",
+							"});\r",
+							"\r",
+							"// Test for missing first name\r",
+							"pm.test(\"Missing first name should return 500 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Email validation fail!!');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ali\",\r\n    \"lastName\": \"Abbas\",\r\n    \"emailId\": \"alabbasexample.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "userLoginRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User login successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User Login Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('userId').to.be.a('string');\r",
+							"    pm.expect(pm.response.json()).to.have.property('emailId', 'hasansyed@gmail.com');\r",
+							"    pm.expect(pm.response.json()).to.have.property('firstName', 'Hasan');\r",
+							"    pm.expect(pm.response.json()).to.have.property('lastName', 'Abbas');\r",
+							"    pm.expect(pm.response.json()).to.have.property('accessToken').to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid credentials should return 401 status\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Invalid email Id or Password !');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid password should return 401 status\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Invalid email Id or Password* !');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User not found should return 401 status\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Invalid email Id or Password !');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\": \"hasansyedgmail.com\",\r\n    \"password\": \"doraemon+\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewUserRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"View user details successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('user').to.be.an('object');\r",
+							"    pm.expect(pm.response.json().user).to.not.have.property('password');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User not found should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User does not exist!');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "payload",
+							"value": "{\r\n    \"user\":\"hasansyed@gmail.com\"\r\n}",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "HS512",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "secret",
+							"value": "iMn0r4ydSeGogu+le6RRMoTIsEap325qwC+490F7rP5tmKCPNlnOuqb8A3ePgMCZ9t90KeRVsqRV2YTHKXo1zsAuCiXcXNQwBSmTz3vkm1gJ3aGA7mm0+ruTz0zFBibRLuJInBAOTC0B6276zCCn9vNQNW5EaKaOkucLCGFiOJQuT/9zRCxU9AHCoU5kAWCepZkcE2bsUa2YDJ27aHMUuygSnB5xX0yP74BLdI9kFuByZXVyW4bE9lWLWja8N2tZyFTHwNdsCu85ptx0YzFlKwenhxoefbW0cXwW58y/hOusQYZ9tPt+NM3U1t9oBjhYfU3IrnmvVEwz5rPYoPxFuw==",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "user",
+						"value": "hasansyed@gmail.com",
+						"uuid": "3a03e93e-39f2-4c9e-a253-f9852c2c4147",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\": \"hasansyed@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/view",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"view"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "hasansyed@gmail.com",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "emailListRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get all user email IDs successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('user').to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"No users found should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User does not exist!');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "jwt",
+					"jwt": [
+						{
+							"key": "payload",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "HS512",
+							"type": "string"
+						},
+						{
+							"key": "header",
+							"value": "{}",
+							"type": "string"
+						},
+						{
+							"key": "secret",
+							"value": "iMn0r4ydSeGogu+le6RRMoTIsEap325qwC+490F7rP5tmKCPNlnOuqb8A3ePgMCZ9t90KeRVsqRV2YTHKXo1zsAuCiXcXNQwBSmTz3vkm1gJ3aGA7mm0+ruTz0zFBibRLuJInBAOTC0B6276zCCn9vNQNW5EaKaOkucLCGFiOJQuT/9zRCxU9AHCoU5kAWCepZkcE2bsUa2YDJ27aHMUuygSnB5xX0yP74BLdI9kFuByZXVyW4bE9lWLWja8N2tZyFTHwNdsCu85ptx0YzFlKwenhxoefbW0cXwW58y/hOusQYZ9tPt+NM3U1t9oBjhYfU3IrnmvVEwz5rPYoPxFuw==",
+							"type": "string"
+						},
+						{
+							"key": "isSecretBase64Encoded",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "headerPrefix",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "queryParamKey",
+							"value": "token",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/emailList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"emailList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete user successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User Account deleted!');\r",
+							"    pm.expect(pm.response.json()).to.have.property('response');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User not found should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User does not exist!');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.aGFzYW5zeWVkQGdtYWlsLmNvbQ.lJHVn-P2pORPgfiD-L4s0EpXvsZGkLiYnoqxEFwcRdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\": \"hasansyed@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edituserRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Edit user details successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User update Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('userId');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User not found should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User does not exist!');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.aGFzYW5zeWVkQGdtYWlsLmNvbQ.lJHVn-P2pORPgfiD-L4s0EpXvsZGkLiYnoqxEFwcRdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\":\"hasansyed@gmail.com\",\r\n    \"firstName\": \"hasan\",\r\n    \"lastName\": \"ali\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updatePasswordRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update password successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Password update Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('userId');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Old password incorrect should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Old Password does not match');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"User not found should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'User does not exist!');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.aGFzYW5zeWVkQGdtYWlsLmNvbQ.lJHVn-P2pORPgfiD-L4s0EpXvsZGkLiYnoqxEFwcRdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"emailId\" : \"hasansyed@gmail.com\" ,\r\n    \"newPassword\" : \"12345678\",\r\n    \"oldPassword\" : \"doraemon++\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/v1/updatePassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"v1",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
