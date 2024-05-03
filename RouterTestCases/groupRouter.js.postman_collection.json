@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "782d787a-c30b-41cb-a69a-d8689fe9cd3d",
+		"name": "groupRouter.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34673916"
+	},
+	"item": [
+		{
+			"name": "createGroupRequest",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "editGroupRequest",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "findUserGroupRequest",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "viewGroupRequest",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
