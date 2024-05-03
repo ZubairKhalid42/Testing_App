@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "55b96d83-696f-4804-88d1-3651ac4a2e03",
+		"name": "expenseRouter.js",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34673916"
+	},
+	"item": [
+		{
+			"name": "addExpenseRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Add expense successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'New expenses added');\r",
+							"    pm.expect(pm.response.json()).to.have.property('Id');\r",
+							"    pm.expect(pm.response.json()).to.have.property('splitUpdateResponse');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid Group Id should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Invalid Group Id');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Missing expense name should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Expense Name is required');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Missing expense amount should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Expense Amount is required');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid expense owner should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Please provide a valid group owner');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid expense members should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Please ensure the members exist in the group');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.aGFzYW5zeWVkQGdtYWlsLmNvbQ.lJHVn-P2pORPgfiD-L4s0EpXvsZGkLiYnoqxEFwcRdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"groupId\": \"66346d9623df186e2c33dd1b\",\r\n    \"groupOwner\": \"hasansyed@gmail.com\",\r\n    \"expenseName\": \"Groceries\",\r\n    \"expenseDesc\": \"Monthly groceries shopping\",\r\n    \"expenseAmount\": 100.00,\r\n    \"expenseOwner\": \"hasansyed@gmail.com\",\r\n    \"expenseMembers\": [\"hasansyed@gmail.com\"],\r\n    \"expenseDate\": \"2024-05-01\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/expense/v1/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"expense",
+						"v1",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editRequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Edit expense successful\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('status', 'Success');\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Expense Edited');\r",
+							"    pm.expect(pm.response.json()).to.have.property('response');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Invalid Expense Id should return 400 status\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.response.to.be.json;\r",
+							"    pm.expect(pm.response.json()).to.have.property('message', 'Invalid Expense Id');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.aGFzYW5zeWVkQGdtYWlsLmNvbQ.lJHVn-P2pORPgfiD-L4s0EpXvsZGkLiYnoqxEFwcRdI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"6634755c23df186e2c33dd3c\", // Existing expense ID in the database\r\n    \"groupId\": \"66346d9623df186e2c33dd1b\", // Group ID to which the expense belongs\r\n    \"expenseName\": \"Updated Expense Name\",\r\n    \"expenseDescription\": \"Updated Expense Description\",\r\n    \"expenseAmount\": 150.50,\r\n    \"expenseOwner\": \"hasansyed@gmail.com\", // Valid user email who is a member of the group\r\n    \"expenseMembers\": [\"hasansyed@gmail.com\"], // Valid user emails who are members of the group\r\n    \"expenseType\": \"Groceries\", // Updated expense type\r\n    \"expenseDate\": \"2024-05-10\" // Updated expense date\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/expense/v1/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"expense",
+						"v1",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
