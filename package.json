@@ -1,17 +1,19 @@
 {
   "name": "splitapp",
   "version": "1.0.0",
-  "description": "This is a group money spliting app made with MERN stack ",
+  "description": "This is a group money splitting app made with MERN stack",
   "main": "app.js",
   "scripts": {
-    "test": "npx nodemon app.js",
     "start": "node app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "dev": "concurrently \"npm test\" \"cd client && npm start\" "
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon app.js",
+    "client": "cd client && npm start",
+    "test": "mocha",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "keywords": [
-    "SplitWise"
-  ],
+  "keywords": ["SplitWise"],
   "author": "Sunny George",
   "license": "ISC",
   "dependencies": {
@@ -33,10 +35,19 @@
     "chai": "^4.2.0",
     "chai-http": "^4.4.0",
     "concurrently": "^7.2.2",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "mocha": "^10.4.0",
-    "mongodb-memory-server": "^9.2.0",
+    "prettier": "^2.5.1",
     "sinon": "^17.0.1",
     "sinon-chai": "^3.7.0",
     "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "eslintConfig": {
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"]
   }
 }
